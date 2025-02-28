@@ -12,11 +12,21 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false # Disable default credentials
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.x"
 
+      - name: Authenticate Git
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
       - name: Run caffeine.py
         run: python Assets/caffeine.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

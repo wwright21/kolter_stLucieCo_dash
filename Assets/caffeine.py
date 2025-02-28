@@ -2,7 +2,6 @@ import os
 import subprocess
 from datetime import datetime
 
-# get current directory
 # Go up one level from Assets/
 REPO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DUMMY_FILE = os.path.join(REPO_DIR, "Assets", "dummy.txt")
@@ -22,15 +21,23 @@ def update_dummy_file():
 def git_commit_and_push():
     """Commit and push the updated file using SSH authentication."""
     try:
-        # Start ssh-agent
-        subprocess.run(["ssh-agent", "bash"], shell=True, check=True)
+        subprocess.run(["git", "config", "--global", "user.email",
+                       "github-actions@github.com"], check=True)
+        subprocess.run(["git", "config", "--global",
+                       "user.name", "github-actions"], check=True)
+
+        # # Start ssh-agent
+        # subprocess.run(["ssh-agent", "bash"], shell=True, check=True)
 
         # Git commands from repo root
         subprocess.run(["git", "add", "Assets/dummy.txt"],
                        cwd=REPO_DIR, check=True)
         subprocess.run(
             ["git", "commit", "-m", f"caffeine push at {right_now}"], cwd=REPO_DIR, check=True)
-        subprocess.run(["git", "push"], cwd=REPO_DIR, check=True)
+
+        # Use GITHUB_TOKEN for authentication
+        subprocess.run(
+            ["git", "push", "https://github.com/${{ github.repository }}.git"], cwd=REPO_DIR, check=True)
 
         print("Changes pushed successfully.")
 
