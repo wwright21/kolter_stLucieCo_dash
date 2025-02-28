@@ -22,6 +22,7 @@ jobs:
         run: |
           mkdir -p Assets
           echo "$(date)" > Assets/timestamp.txt
+          cat Assets/timestamp.txt # Debugging step: Check if the file is created
 
       - name: Stash untracked files (if any)
         run: git stash --include-untracked
