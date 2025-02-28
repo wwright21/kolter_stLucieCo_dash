@@ -14,6 +14,7 @@ st.set_page_config(
 county_var = "St. Lucie"
 state_var = "Florida"
 stateAbbrev_var = "FL"
+text_color = "#36454F"
 
 # set the dashboard title
 title_font_size = 30
@@ -23,9 +24,9 @@ title_margin_bottom = 0
 # Dashboard title
 st.markdown(
     f"""
-    <div style='margin-top: {title_margin_top}px; margin-bottom: {title_margin_bottom}px;'>
-        <span style='font-size: {title_font_size}px; font-weight: 700; color: #36454F;'>
-            {county_var} County ({stateAbbrev_var}) Migration Dashboard
+    <div style='margin-top: {title_margin_top}px; margin-bottom: {title_margin_bottom}px; text-align: center;'>
+        <span style='font-size: {title_font_size}px; font-weight: 700; color: {text_color};'>
+            {county_var} County ({stateAbbrev_var})<br> Migration Dashboard
         </span>
     </div>
     """,
@@ -39,9 +40,9 @@ col1, col2 = st.columns(2)
 
 # Radio label
 col1.markdown(
-    """
+    f"""
     <div style='text-align: right; padding-top: 0px;'>
-        <span style='font-size: 20px; font-style: italic; color: #36454F;'>
+        <span style='font-size: 20px; font-style: italic; color: {text_color};'>
             Select migration variable:
         </span>
     </div>
@@ -96,7 +97,7 @@ fig.update_layout(
     ),
     title={
         'font': {
-            'color': '#000',
+            'color': text_color,
             'weight': 'normal'
         },
         'x': 0.5,
@@ -291,7 +292,7 @@ st.write("")
 col1, col2 = st.columns([4, 1])
 col1.markdown(
     f"""
-    For questions about this data explorer or the source data, please contact Will Wright by clicking <a href="mailto:williamcwrightjr@gmail.com?subject=Question about Baldwin Migration Dashboard" style="text-decoration: none; color: #FF6F61;"><b>here</b>.</a> 
+    For questions about this data explorer or the source data, please contact Will Wright by clicking <a href="mailto:williamcwrightjr@gmail.com?subject=Question about {county_var} County Migration Dashboard" style="text-decoration: none; color: #FF6F61;"><b>here</b>.</a> 
     """,
     unsafe_allow_html=True)
 col2.image('Assets/kolter2.png', width=100)
