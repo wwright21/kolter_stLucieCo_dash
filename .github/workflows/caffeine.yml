@@ -34,6 +34,7 @@ jobs:
       - name: Add and commit changes
         run: |
           git add Assets/timestamp.txt
+          git status
           git diff --cached --exit-code || git commit -m "Daily caffeine push"
 
       - name: Push changes
