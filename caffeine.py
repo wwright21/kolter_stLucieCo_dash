@@ -14,6 +14,7 @@ def make_and_remove_file():
 
     # Delete the file
     os.remove(dummy_file)
+    print("File created and removed successfully.")
 
 
 def git_commit_and_push():
@@ -30,4 +31,4 @@ def git_commit_and_push():
 
 if __name__ == "__main__":
     make_and_remove_file()
-    git_commit_and_push()
+    # git_commit_and_push()
