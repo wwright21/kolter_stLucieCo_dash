@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import numpy as np
 
 # set page configurations
 st.set_page_config(
@@ -283,6 +284,7 @@ formatted_df = df_display.style.format({
     f"Persons into {county_var} County": "{:,.0f}",
     f"Persons leaving {county_var} County": "{:,.0f}",
 })
+
 
 st.dataframe(formatted_df)
 
