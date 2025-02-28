@@ -3,7 +3,7 @@ name: Daily Caffeine Push
 on:
   schedule:
     - cron: "0 7 * * *"
-  workflow_dispatch: # Allows manual trigger
+  workflow_dispatch:
 
 jobs:
   caffeine_job:
@@ -12,22 +12,20 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          persist-credentials: false # Disable default credentials
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.x"
-
-      - name: Authenticate Git
+      - name: Create timestamp file
         run: |
+          mkdir -p Assets
+          echo "$(date)" > Assets/timestamp.txt
+
+      - name: Add and commit changes
+        run: |
+          git add Assets/timestamp.txt
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git commit -m "Daily caffeine push"
 
-      - name: Run caffeine.py
-        run: python Assets/caffeine.py
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_ASKPASS: "echo $GITHUB_TOKEN"
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
