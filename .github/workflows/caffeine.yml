@@ -23,6 +23,10 @@ jobs:
           mkdir -p Assets
           echo "$(date)" > Assets/timestamp.txt
 
+      - name: Pull latest changes from remote
+        run: |
+          git pull origin master --rebase
+
       - name: Add and commit changes
         run: |
           git add Assets/timestamp.txt
