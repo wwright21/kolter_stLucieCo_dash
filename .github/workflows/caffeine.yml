@@ -13,6 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Git config
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+
       - name: Create timestamp file
         run: |
           mkdir -p Assets
@@ -21,9 +26,7 @@ jobs:
       - name: Add and commit changes
         run: |
           git add Assets/timestamp.txt
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "github-actions"
-          git commit -m "Daily caffeine push"
+          git diff --cached --exit-code || git commit -m "Daily caffeine push"
 
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
