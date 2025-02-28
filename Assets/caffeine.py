@@ -21,10 +21,13 @@ def update_dummy_file():
 def git_commit_and_push():
     """Commit and push the updated file using SSH authentication."""
     try:
+
         subprocess.run(["git", "config", "--global", "user.email",
                        "github-actions@github.com"], check=True)
         subprocess.run(["git", "config", "--global",
                        "user.name", "github-actions"], check=True)
+
+        os.environ['GIT_ASKPASS'] = 'echo $GITHUB_TOKEN'
 
         # # Start ssh-agent
         # subprocess.run(["ssh-agent", "bash"], shell=True, check=True)
