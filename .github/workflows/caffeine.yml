@@ -28,7 +28,7 @@ jobs:
 
       - name: Pull latest changes from remote
         run: |
-          git pull origin master --rebase
+          git pull origin master --rebase || git reset --hard HEAD
 
       - name: Add and commit changes
         run: |
