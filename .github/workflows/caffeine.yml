@@ -23,6 +23,9 @@ jobs:
           mkdir -p Assets
           echo "$(date)" > Assets/timestamp.txt
 
+      - name: Stash untracked files (if any)
+        run: git stash --include-untracked
+
       - name: Pull latest changes from remote
         run: |
           git pull origin master --rebase
