@@ -247,6 +247,8 @@ st.markdown(
     unsafe_allow_html=True)
 
 df_display = df[df['migration_type'] != 'total']
+
+df_display = df_display.copy()
 df_display['year'] = df_display['year'].astype(str)
 df_display = df_display.drop(
     columns=['migration_type', 'primary_FIPS', 'aux_FIPS'])
